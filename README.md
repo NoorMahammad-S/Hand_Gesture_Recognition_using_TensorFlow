@@ -1,3 +1,5 @@
+# ```                AI & ML Project                ```
+
 # Hand Gesture Recognition using TensorFlow Object Detection API
 
 This repository contains a Python script for real-time hand gesture recognition using TensorFlow Object Detection API. The script uses a pre-trained model for object detection to identify and visualize hand gestures in a live video stream.
