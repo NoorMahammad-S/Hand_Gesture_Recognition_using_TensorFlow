@@ -1,4 +1,5 @@
 import cv2
+import numpy as np
 import tensorflow as tf
 from object_detection.utils import label_map_util
 from object_detection.utils import visualization_utils as vis_util
@@ -8,7 +9,8 @@ PATH_TO_MODEL = 'path/to/your/pretrained/model/saved_model'
 PATH_TO_LABELS = 'path/to/your/label/map.pbtxt'
 
 # Load the pre-trained model
-detect_fn = tf.saved_model.load(PATH_TO_MODEL)
+model = tf.saved_model.load(PATH_TO_MODEL)
+infer = model.signatures["serving_default"]
 
 # Load the label map
 category_index = label_map_util.create_category_index_from_labelmap(PATH_TO_LABELS, use_display_name=True)
@@ -23,9 +25,12 @@ while True:
     # Convert the image to RGB
     rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
-    # Make the prediction using the pre-trained model
+    # Expand dimensions to create a batch-sized image
     input_tensor = tf.convert_to_tensor([rgb_frame])
-    detections = detect_fn(input_tensor)
+    input_tensor = input_tensor[0][tf.newaxis, ...]
+
+    # Perform inference
+    detections = infer(input_tensor)
 
     # Visualize the detections on the frame
     vis_util.visualize_boxes_and_labels_on_image_array(
