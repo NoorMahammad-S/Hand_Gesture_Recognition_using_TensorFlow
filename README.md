@@ -59,4 +59,3 @@ Feel free to customize the script according to your requirements.
 ## Acknowledgments
 
 - This project is based on the TensorFlow Object Detection API. Check out the official documentation for more details: [TensorFlow Object Detection API](https://github.com/tensorflow/models/tree/master/research/object_detection)
-
